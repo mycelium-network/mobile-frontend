@@ -62,7 +62,7 @@ export default function App() {
 
   function login() {
     console.log("Login("+username+", "+password+")")
-
+    console.log(Constants.API_TOKEN)
     fetch(Constants.API_TOKEN, {
       method: 'POST',
       headers: {
@@ -89,12 +89,14 @@ export default function App() {
         getUser(responseJson.access_token);
       })
       .catch((error) => {
-        console.error(error);
+        setErrorText("Login - Network request failed")
+        setErrorTextVisible(true)
       });
   }
 
   function getUser(access_token) {
-    fetch('API_USER_ME', {
+    console.log(Constants.API_USER_ME)
+    fetch(Constants.API_USER_ME, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -120,7 +122,8 @@ export default function App() {
         Alert.alert("Hello "+responseJson.full_name);
       })
       .catch((error) => {
-        console.error(error);
+        setErrorText("Get User - Network request failed")
+        setErrorTextVisible(true)
       });
   }
 
